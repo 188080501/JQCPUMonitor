@@ -6,7 +6,7 @@
 #include <QDateTime>
 #include <QMutex>
 #include <QThread>
-#include <QSharedPointer>
+#include <QPointer>
 
 class JQCPUMonitor: public QThread
 {
@@ -34,7 +34,7 @@ private:
     static void tick();
 
 private:
-    static QSharedPointer< JQCPUMonitor > cpuMonitor_;
+    static QPointer< JQCPUMonitor > cpuMonitor_;
     static bool continueFlag_;
 
     static QMutex mutex_;

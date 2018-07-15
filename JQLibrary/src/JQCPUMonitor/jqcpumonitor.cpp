@@ -32,7 +32,7 @@ qint64 fileTimeToMSecs(const FILETIME &fileTime)
 #endif
 
 // JQCPUMonitor
-QSharedPointer< JQCPUMonitor > JQCPUMonitor::cpuMonitor_;
+QPointer< JQCPUMonitor > JQCPUMonitor::cpuMonitor_;
 bool JQCPUMonitor::continueFlag_ = true;
 
 QMutex JQCPUMonitor::mutex_;
@@ -40,7 +40,7 @@ QList< QPair< qint64, qreal > > JQCPUMonitor::cpuUsagePercentageRecords_; // [ {
 
 void JQCPUMonitor::initialize()
 {
-    cpuMonitor_.reset( new JQCPUMonitor );
+    cpuMonitor_ = new JQCPUMonitor;
     cpuMonitor_->start();
 
     QObject::connect( qApp, &QCoreApplication::aboutToQuit, [](){ continueFlag_ = false; } );
