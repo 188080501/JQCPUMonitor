@@ -1,0 +1,7 @@
+﻿#ifndef JQLIBRARY_INCLUDE_JQCPUMONITOR_INC_
+#define JQLIBRARY_INCLUDE_JQCPUMONITOR_INC_
+
+// .h include
+#include "jqcpumonitor.h"
+
+#endif//JQLIBRARY_INCLUDE_JQCPUMONITOR_INC_
