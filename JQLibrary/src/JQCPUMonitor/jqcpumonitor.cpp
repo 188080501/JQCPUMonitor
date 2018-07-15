@@ -193,7 +193,11 @@ void JQCPUMonitor::tick()
 
         QMutexLocker locker( &mutex_ );
 
-        cpuUsagePercentageRecords_.push_back( { currentMSecsSinceEpoch, static_cast< qreal >( userTimeOffset ) / static_cast< qreal >( queryTimeOffset ) } );
+        cpuUsagePercentageRecords_.push_back(
+                    {
+                        currentMSecsSinceEpoch,
+                        qMax( qMin( static_cast< qreal >( userTimeOffset ) / static_cast< qreal >( queryTimeOffset ), 1.0 ), 0.0 )
+                    } );
 
         while ( cpuUsagePercentageRecords_.size() > 100 ) { cpuUsagePercentageRecords_.pop_front(); }
     }
