@@ -139,9 +139,7 @@ void JQCPUMonitor::tick()
 
     currentCpuTime = qMax( currentCpuTime, static_cast< qint64 >( 0 ) );
     currentCpuTime /= QThread::idealThreadCount();
-#endif
-
-#ifdef Q_OS_MAC
+#elif Q_OS_MAC
     natural_t processorCount;
     processor_cpu_load_info_t cpuLoad;
     mach_msg_type_number_t processorMsgCount;
@@ -160,9 +158,7 @@ void JQCPUMonitor::tick()
         currentCpuTime += cpuLoad[ index ].cpu_ticks[ CPU_STATE_SYSTEM ];
         currentCpuTime += cpuLoad[ index ].cpu_ticks[ CPU_STATE_NICE ];
     }
-#endif
-
-#ifdef Q_OS_LINUX
+#elif Q_OS_LINUX
     QFile file( "/proc/stat" );
     if ( !file.open( QIODevice::ReadOnly ) )
     {
