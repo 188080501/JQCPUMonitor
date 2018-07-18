@@ -55,42 +55,24 @@ qreal JQCPUMonitor::cpuUsagePercentage()
     return cpuUsagePercentageRecords_.last().second;
 }
 
-qreal JQCPUMonitor::cpuUsagePercentageIn5Second()
+qreal JQCPUMonitor::cpuUsagePercentageInTime(const qint64 &msecs)
 {
     qreal percentageSum = 0.0;
     auto percentageCount = 0;
-    const auto &&timeStart = QDateTime::currentMSecsSinceEpoch() - 5 * 1000;
+    const auto &&timeStart = QDateTime::currentMSecsSinceEpoch() - msecs;
 
     QMutexLocker locker( &mutex_ );
 
-    for ( auto pair: cpuUsagePercentageRecords_ )
+    for ( auto it = cpuUsagePercentageRecords_.rbegin(); it != cpuUsagePercentageRecords_.rend(); ++it )
     {
-        if ( pair.first >= timeStart )
+        if ( it->first >= timeStart )
         {
-            percentageSum += pair.second;
+            percentageSum += it->second;
             ++percentageCount;
         }
-    }
-
-    if ( !percentageCount || ( percentageSum < 0.01 ) ) { return 0.0; }
-
-    return percentageSum / static_cast< qreal >( percentageCount );
-}
-
-qreal JQCPUMonitor::cpuUsagePercentageIn30Second()
-{
-    qreal percentageSum = 0.0;
-    auto percentageCount = 0;
-    const auto &&timeStart = QDateTime::currentMSecsSinceEpoch() - 30 * 1000;
-
-    QMutexLocker locker( &mutex_ );
-
-    for ( auto pair: cpuUsagePercentageRecords_ )
-    {
-        if ( pair.first >= timeStart )
+        else
         {
-            percentageSum += pair.second;
-            ++percentageCount;
+            break;
         }
     }
 
@@ -195,7 +177,7 @@ void JQCPUMonitor::tick()
                         qMax( qMin( static_cast< qreal >( userTimeOffset ) / static_cast< qreal >( queryTimeOffset ), 1.0 ), 0.0 )
                     } );
 
-        while ( cpuUsagePercentageRecords_.size() > 100 ) { cpuUsagePercentageRecords_.pop_front(); }
+        while ( cpuUsagePercentageRecords_.size() > 1800 ) { cpuUsagePercentageRecords_.pop_front(); }
     }
 
     lastCpuTime = currentCpuTime;

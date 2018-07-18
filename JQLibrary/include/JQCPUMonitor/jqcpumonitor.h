@@ -22,11 +22,26 @@ public:
 public:
     static void initialize();
 
+    inline static QString cpuUsagePercentageDisplayString();
+
+    inline static QString cpuUsagePercentageIn5SecondDisplayString();
+
+    inline static QString cpuUsagePercentageIn30SecondDisplayString();
+
+    inline static QString cpuUsagePercentageIn5MinuteDisplayString();
+
+    inline static QString cpuUsagePercentageInTimeDisplayString(const qint64 &msecs);
+
+
     static qreal cpuUsagePercentage();
 
-    static qreal cpuUsagePercentageIn5Second();
+    inline static qreal cpuUsagePercentageIn5Second();
 
-    static qreal cpuUsagePercentageIn30Second();
+    inline static qreal cpuUsagePercentageIn30Second();
+
+    inline static qreal cpuUsagePercentageIn5Minute();
+
+    static qreal cpuUsagePercentageInTime(const qint64 &msecs);
 
 private:
     void run();
