@@ -85,7 +85,7 @@ void JQCPUMonitor::run()
 {
     while ( continueFlag_ )
     {
-        QThread::msleep( 500 );
+        QThread::msleep( 1200 );
 
         tick();
     }
