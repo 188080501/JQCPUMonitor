@@ -40,6 +40,13 @@ QList< QPair< qint64, qreal > > JQCPUMonitor::cpuUsagePercentageRecords_; // [ {
 
 void JQCPUMonitor::initialize()
 {
+    if ( cpuMonitor_ )
+    {
+        QThread::sleep( 1 );
+        qDebug() << "JQCPUMonitor: duplicate initialize";
+        return;
+    }
+
     cpuMonitor_ = new JQCPUMonitor;
     cpuMonitor_->start();
 
