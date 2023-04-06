@@ -23,8 +23,8 @@ INCLUDEPATH *= \
     $$PWD/include/JQCPUMonitor/
 
 HEADERS *= \
-    $$PWD/include/JQCPUMonitor/*.h \
-    $$PWD/include/JQCPUMonitor/*.inc
+    $$PWD/include/JQCPUMonitor/jqcpumonitor.h \
+    $$PWD/include/JQCPUMonitor/jqcpumonitor.inc
 
 SOURCES *= \
-    $$PWD/src/JQCPUMonitor/*.cpp
+    $$PWD/src/JQCPUMonitor/jqcpumonitor.cpp
